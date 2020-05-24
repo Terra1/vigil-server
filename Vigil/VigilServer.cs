@@ -10,13 +10,6 @@ namespace Vigil
     /// </summary>
     public class VigilServer : Game
     {
-        public class ShipMovements
-        {
-            public Vector2 VelocityChange { get; set; } = new Vector2( 0, 0 );
-            public float ThrustChange { get; set; } = 0f;
-            public float SpinChange { get; set; } = 0f;
-        }
-
         public VigilServer() {}
 
         /// <summary>

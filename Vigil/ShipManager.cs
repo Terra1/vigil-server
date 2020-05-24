@@ -10,7 +10,6 @@ namespace Vigil
 {
     using ShipPosition = KeyValuePair<Ship, Vector2>;
     using ShipTexture = KeyValuePair<ShipType, Texture2D>;
-    public enum ShipType { Frigate, Corvette, Battleship, Carrier, Titan }
     public sealed class ShipTextureManager
     {
         private static readonly Lazy<ShipTextureManager> lazy = new Lazy<ShipTextureManager>(() => new ShipTextureManager());
