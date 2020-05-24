@@ -8,27 +8,16 @@ namespace Vigil
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Vigil : Game
+    public class VigilServer : Game
     {
-        static public GraphicsDeviceManager graphics;
-        InputHandler _InputHandler = new InputHandler();
-        DrawHandler _DrawHandler;
-
-        public SpriteFont DebugFont;
-
-        public struct ShipMovements
+        public class ShipMovements
         {
-            public Vector2 VelocityChange;
-            public float ThrustChange;
-            public float SpinChange;
+            public Vector2 VelocityChange { get; set; } = new Vector2( 0, 0 );
+            public float ThrustChange { get; set; } = 0f;
+            public float SpinChange { get; set; } = 0f;
         }
 
-        public Vigil()
-        {
-            // Init graphics
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-        }
+        public VigilServer() {}
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -38,8 +27,6 @@ namespace Vigil
         /// </summary>
         protected override void Initialize()
         {
-            _DrawHandler = new DrawHandler(graphics);
-
             var playerShip = ShipManager.Instance.SpawnShip(ShipType.Corvette);
             ShipManager.Instance.SetPlayerShip(playerShip);
 
@@ -50,15 +37,7 @@ namespace Vigil
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
-        protected override void LoadContent()
-        {
-            // Init the Draw Handler
-            _DrawHandler.Load(this);
-
-            // Load all shiptype textures
-            ShipTextureManager.Instance.Load(this);
-            DebugFont = Content.Load<SpriteFont>("debug");
-        }
+        protected override void LoadContent() {}
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -78,7 +57,12 @@ namespace Vigil
         protected override void Update(GameTime gameTime)
         {
             // Parse current keyboard state and update player speed
-            ShipMovements shipMove = _InputHandler.Parse(out bool exit);
+
+            ShipMovements shipMove = new ShipMovements();
+            bool exit = false;
+
+            // TODO MIKAEL: This needs to be handled
+            // ShipMovements shipMove = _InputHandler.Parse(out bool exit);
             if (exit)
                 Exit();
 
@@ -86,16 +70,6 @@ namespace Vigil
             ShipManager.Instance.UpdatePositions();
 
             base.Update(gameTime);
-        }
-
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
-        {
-            _DrawHandler.Update(this);
-            base.Draw(gameTime);
         }
     }
 }

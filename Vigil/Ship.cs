@@ -43,7 +43,7 @@ namespace Vigil
             return _Thrust;
         }
 
-        internal void UpdateMoves(Vigil.ShipMovements shipMove)
+        internal void UpdateMoves(VigilServer.ShipMovements shipMove)
         {
             _Thrust = Math.Max(_Thrust + shipMove.ThrustChange, 0.0f);
             _Spin += shipMove.SpinChange;

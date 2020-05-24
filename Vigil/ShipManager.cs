@@ -19,7 +19,7 @@ namespace Vigil
         }
         public static ShipTextureManager Instance { get { return lazy.Value; } }
         private List<ShipTexture> _ShipTextures = new List<ShipTexture>();
-        public void Load(Vigil game)
+        public void Load(VigilServer game)
         {
             foreach (ShipType type in Enum.GetValues(typeof(ShipType)).Cast<ShipType>())
             {
